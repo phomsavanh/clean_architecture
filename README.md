@@ -50,5 +50,5 @@
     ```
     await Hive.openBox<TodosModel>(HiveBoxPath.todos);
     ```
-    ### Note: put type as you model and hive box path just string or some that you want to define.
+    ### Note: put type as you model and hive box path just string or some names that you want to define.
 4. Test your hive database
