@@ -18,9 +18,14 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,7 +40,7 @@ class MyApp extends StatelessWidget {
       locale: context.locale,
       //set up navigation
       navigatorKey: NavigationService.navigationKey,
-      onGenerateRoute: AppRoute.routeGenerate,
+      onGenerateRoute: (settings) => AppRoute.routeGenerate(settings, this),
       initialRoute: AppRoute.initialRoute,
       //disable debug
       debugShowCheckedModeBanner: false,

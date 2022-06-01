@@ -6,6 +6,7 @@ class TodoState with _$TodoState {
   const factory TodoState.loading() = _Loading;
   const factory TodoState.loaded({
     @Default([]) List<Todos> todos,
+    @Default([]) List<User> users,
   }) = _Loaded;
   const factory TodoState.error(String message) = _Error;
 }

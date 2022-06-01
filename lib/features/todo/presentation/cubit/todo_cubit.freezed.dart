@@ -20,7 +20,7 @@ mixin _$TodoState {
   TResult when<TResult extends Object?>({
     required TResult Function() start,
     required TResult Function() loading,
-    required TResult Function(List<Todos> todos) loaded,
+    required TResult Function(List<Todos> todos, List<User> users) loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$TodoState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? start,
     TResult Function()? loading,
-    TResult Function(List<Todos> todos)? loaded,
+    TResult Function(List<Todos> todos, List<User> users)? loaded,
     TResult Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$TodoState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? start,
     TResult Function()? loading,
-    TResult Function(List<Todos> todos)? loaded,
+    TResult Function(List<Todos> todos, List<User> users)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -123,7 +123,7 @@ class _$_Start implements _Start {
   TResult when<TResult extends Object?>({
     required TResult Function() start,
     required TResult Function() loading,
-    required TResult Function(List<Todos> todos) loaded,
+    required TResult Function(List<Todos> todos, List<User> users) loaded,
     required TResult Function(String message) error,
   }) {
     return start();
@@ -134,7 +134,7 @@ class _$_Start implements _Start {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? start,
     TResult Function()? loading,
-    TResult Function(List<Todos> todos)? loaded,
+    TResult Function(List<Todos> todos, List<User> users)? loaded,
     TResult Function(String message)? error,
   }) {
     return start?.call();
@@ -145,7 +145,7 @@ class _$_Start implements _Start {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? start,
     TResult Function()? loading,
-    TResult Function(List<Todos> todos)? loaded,
+    TResult Function(List<Todos> todos, List<User> users)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -238,7 +238,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() start,
     required TResult Function() loading,
-    required TResult Function(List<Todos> todos) loaded,
+    required TResult Function(List<Todos> todos, List<User> users) loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -249,7 +249,7 @@ class _$_Loading implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? start,
     TResult Function()? loading,
-    TResult Function(List<Todos> todos)? loaded,
+    TResult Function(List<Todos> todos, List<User> users)? loaded,
     TResult Function(String message)? error,
   }) {
     return loading?.call();
@@ -260,7 +260,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? start,
     TResult Function()? loading,
-    TResult Function(List<Todos> todos)? loaded,
+    TResult Function(List<Todos> todos, List<User> users)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -316,7 +316,7 @@ abstract class _Loading implements TodoState {
 abstract class _$$_LoadedCopyWith<$Res> {
   factory _$$_LoadedCopyWith(_$_Loaded value, $Res Function(_$_Loaded) then) =
       __$$_LoadedCopyWithImpl<$Res>;
-  $Res call({List<Todos> todos});
+  $Res call({List<Todos> todos, List<User> users});
 }
 
 /// @nodoc
@@ -331,12 +331,17 @@ class __$$_LoadedCopyWithImpl<$Res> extends _$TodoStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? todos = freezed,
+    Object? users = freezed,
   }) {
     return _then(_$_Loaded(
       todos: todos == freezed
           ? _value._todos
           : todos // ignore: cast_nullable_to_non_nullable
               as List<Todos>,
+      users: users == freezed
+          ? _value._users
+          : users // ignore: cast_nullable_to_non_nullable
+              as List<User>,
     ));
   }
 }
@@ -344,7 +349,10 @@ class __$$_LoadedCopyWithImpl<$Res> extends _$TodoStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded({final List<Todos> todos = const []}) : _todos = todos;
+  const _$_Loaded(
+      {final List<Todos> todos = const [], final List<User> users = const []})
+      : _todos = todos,
+        _users = users;
 
   final List<Todos> _todos;
   @override
@@ -354,9 +362,17 @@ class _$_Loaded implements _Loaded {
     return EqualUnmodifiableListView(_todos);
   }
 
+  final List<User> _users;
+  @override
+  @JsonKey()
+  List<User> get users {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_users);
+  }
+
   @override
   String toString() {
-    return 'TodoState.loaded(todos: $todos)';
+    return 'TodoState.loaded(todos: $todos, users: $users)';
   }
 
   @override
@@ -364,12 +380,15 @@ class _$_Loaded implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Loaded &&
-            const DeepCollectionEquality().equals(other._todos, _todos));
+            const DeepCollectionEquality().equals(other._todos, _todos) &&
+            const DeepCollectionEquality().equals(other._users, _users));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_todos));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_todos),
+      const DeepCollectionEquality().hash(_users));
 
   @JsonKey(ignore: true)
   @override
@@ -381,10 +400,10 @@ class _$_Loaded implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() start,
     required TResult Function() loading,
-    required TResult Function(List<Todos> todos) loaded,
+    required TResult Function(List<Todos> todos, List<User> users) loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(todos);
+    return loaded(todos, users);
   }
 
   @override
@@ -392,10 +411,10 @@ class _$_Loaded implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? start,
     TResult Function()? loading,
-    TResult Function(List<Todos> todos)? loaded,
+    TResult Function(List<Todos> todos, List<User> users)? loaded,
     TResult Function(String message)? error,
   }) {
-    return loaded?.call(todos);
+    return loaded?.call(todos, users);
   }
 
   @override
@@ -403,12 +422,12 @@ class _$_Loaded implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? start,
     TResult Function()? loading,
-    TResult Function(List<Todos> todos)? loaded,
+    TResult Function(List<Todos> todos, List<User> users)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(todos);
+      return loaded(todos, users);
     }
     return orElse();
   }
@@ -452,9 +471,11 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements TodoState {
-  const factory _Loaded({final List<Todos> todos}) = _$_Loaded;
+  const factory _Loaded({final List<Todos> todos, final List<User> users}) =
+      _$_Loaded;
 
   List<Todos> get todos => throw _privateConstructorUsedError;
+  List<User> get users => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$_LoadedCopyWith<_$_Loaded> get copyWith =>
       throw _privateConstructorUsedError;
@@ -524,7 +545,7 @@ class _$_Error implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() start,
     required TResult Function() loading,
-    required TResult Function(List<Todos> todos) loaded,
+    required TResult Function(List<Todos> todos, List<User> users) loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -535,7 +556,7 @@ class _$_Error implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? start,
     TResult Function()? loading,
-    TResult Function(List<Todos> todos)? loaded,
+    TResult Function(List<Todos> todos, List<User> users)? loaded,
     TResult Function(String message)? error,
   }) {
     return error?.call(message);
@@ -546,7 +567,7 @@ class _$_Error implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? start,
     TResult Function()? loading,
-    TResult Function(List<Todos> todos)? loaded,
+    TResult Function(List<Todos> todos, List<User> users)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

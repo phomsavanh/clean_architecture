@@ -1,5 +1,9 @@
 import 'package:clean_architecture/core/constants/hive_path.dart';
+import 'package:clean_architecture/features/todo/data/models/address_model.dart';
+import 'package:clean_architecture/features/todo/data/models/company_model.dart';
+import 'package:clean_architecture/features/todo/data/models/geo_model.dart';
 import 'package:clean_architecture/features/todo/data/models/todos_model.dart';
+import 'package:clean_architecture/features/todo/data/models/user_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 
@@ -9,9 +13,17 @@ class HiveDatabaseService {
     await Hive.initFlutter();
     //resgister adapter
     Hive.registerAdapter(TodosModelAdapter());
+    Hive.registerAdapter(AddressModelAdapter());
+    Hive.registerAdapter(CompanyModelAdapter());
+    Hive.registerAdapter(GeoModelAdapter());
+    Hive.registerAdapter(UserModelAdapter());
 
     //open box
     await Hive.openBox<TodosModel>(HiveBoxPath.todos);
+    await Hive.openBox<TodosModel>(HiveBoxPath.adress);
+    await Hive.openBox<TodosModel>(HiveBoxPath.company);
+    await Hive.openBox<TodosModel>(HiveBoxPath.geo);
+    await Hive.openBox<TodosModel>(HiveBoxPath.user);
   }
 
   Box<T> getBox<T>(String name) {

@@ -1,5 +1,6 @@
 import 'package:clean_architecture/core/constants/api_path.dart';
 import 'package:clean_architecture/features/todo/data/models/todos_model.dart';
+import 'package:clean_architecture/features/todo/data/models/user_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
@@ -14,4 +15,7 @@ abstract class ApiClient {
 
   @GET(ApiPaht.todos)
   Future<List<TodosModel>> getTodos();
+
+  @GET(ApiPaht.users)
+  Future<List<UserModel>> getUsers();
 }

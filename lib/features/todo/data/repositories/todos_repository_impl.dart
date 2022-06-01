@@ -5,6 +5,7 @@ import 'package:clean_architecture/core/error/failures.dart';
 import 'package:clean_architecture/features/todo/data/datasources/todos_local_datasource.dart';
 import 'package:clean_architecture/features/todo/data/datasources/todos_remote_datasource.dart';
 import 'package:clean_architecture/features/todo/domain/entities/todos.dart';
+import 'package:clean_architecture/features/todo/domain/entities/user.dart';
 import 'package:clean_architecture/features/todo/domain/repositories/todos_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -28,6 +29,21 @@ class TodosRepositoryImpl implements TodosRepository {
       return Right(data);
     } on SocketException catch (_) {
       final offlineData = todosLocalDatasource.getTodos();
+      return Right(offlineData);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.message.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<User>>> getUsers() async {
+    try {
+      final data = await todosRemoteDatasource.getUsers();
+      //save to local
+      await todosLocalDatasource.createUsers(data);
+      return Right(data);
+    } on SocketException catch (_) {
+      final offlineData = todosLocalDatasource.getUsers();
       return Right(offlineData);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message.toString()));
